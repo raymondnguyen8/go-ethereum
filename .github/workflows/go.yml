@@ -46,4 +46,4 @@ jobs:
       - name: Installing flood
         run: pip install paradigm-flood
       - name: Flood test
-        run: flood
+        run: flood eth_getBlockByNumber NODE1_NAME=127.0.0.1:8545 --rates 10 --duration 5
