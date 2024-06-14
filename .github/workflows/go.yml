@@ -1,4 +1,4 @@
-name: i386 linux tests
+name: stress test
 
 on:
   push:
@@ -36,27 +36,5 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: bin
-      - name: Listing files
-        run: ls -R
-      - name: Install Web3.js
-        run: npm install web3
-      - name: Start Geth in Development Mode
-        run: |
-          chmod +x build/bin/geth
-          nohup ./build/bin/geth --dev --http --http.api "personal,eth,net,web3" --http.addr "0.0.0.0" --http.port 8545 &
-          sleep 5 # Wait for geth to start
-      - name: Send ETH
-        run: node sendEth.js
-      - name: Install pandoras-box
-        run: npm install -g pandoras-box
-      - name: Run stress test
-        run: pandoras-box -url http://127.0.0.1:8545 -m "erupt oven loud noise rug proof sunset gas table era dizzy vault" -t 1 -b 5 -o ./myOutput.json
-      # - name: Set up Go
-      #   uses: actions/setup-go@v5
-      #   with:
-      #     go-version: 1.21.4
-      # - name: Run tests
-      #   run: go test -short ./...
-      #   env:
-      #     GOOS: linux
-      #     GOARCH: 386
+      - name: Pip version checking
+        run: pip -V
