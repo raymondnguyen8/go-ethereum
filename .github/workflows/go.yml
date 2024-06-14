@@ -36,5 +36,14 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: bin
-      - name: Pip version checking
-        run: pip -V
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.21.4
+          cache: false
+      - name: Install vegeta
+        run: go install github.com/tsenart/vegeta/v12@v12.8.4
+      - name: Installing flood
+        run: pip install paradigm-flood
+      - name: Flood test
+        run: flood
