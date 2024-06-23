@@ -37,7 +37,9 @@ jobs:
         with:
           name: bin
       - name: Listing files
-        run: ls -R
+        run: |
+          ls -R
+          pwd
       - name: Install related tools
         run: |
           sudo add-apt-repository -y ppa:ethereum/ethereum
@@ -52,7 +54,8 @@ jobs:
           pip install -e '.[docs,lint,test]'
       - name: Test spec
         run: |
+          chmod +x ~/build/bin/evm
           cd execution-spec-tests
           source ./venv/bin/activate
-          fill --fork=Cancun --evm-bin=./build/bin/evm -v tests/berlin/eip2930_access_list/test_acl.py
+          fill --fork=Cancun --evm-bin=~/build/bin/evm -v tests/berlin/eip2930_access_list/test_acl.py
 
