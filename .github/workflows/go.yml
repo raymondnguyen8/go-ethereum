@@ -21,7 +21,7 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-go-
         - name: Build
-          run: make geth
+          run: make evm
         - name: Archive
           uses: actions/upload-artifact@v4
           with:
