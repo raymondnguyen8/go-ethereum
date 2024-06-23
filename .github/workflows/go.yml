@@ -50,8 +50,9 @@ jobs:
           python3 -m venv ./venv/
           source ./venv/bin/activate
           pip install -e '.[docs,lint,test]'
-      - name: Verify the installation
+      - name: Test spec
         run: |
           cd execution-spec-tests
           source ./venv/bin/activate
-          fill --collect-only
+          fill --fork=Cancun --evm-bin=./build/bin/evm -v tests/berlin/eip2930_access_list/test_acl.py
+
