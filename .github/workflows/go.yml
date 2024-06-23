@@ -51,4 +51,7 @@ jobs:
           source ./venv/bin/activate
           pip install -e '.[docs,lint,test]'
       - name: Verify the installation
-        run: fill --collect-only
+        run: |
+          cd execution-spec-tests
+          source ./venv/bin/activate
+          fill --collect-only
