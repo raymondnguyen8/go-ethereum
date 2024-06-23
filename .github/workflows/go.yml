@@ -29,7 +29,7 @@ jobs:
             path: |
               build/bin
               sendEth.js
-  stress-test:
+  spec-test:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -38,25 +38,15 @@ jobs:
           name: bin
       - name: Listing files
         run: ls -R
-      - name: Install Web3.js
-        run: npm install web3
-      - name: Start Geth in Development Mode
+      - name: Install related tools
         run: |
-          chmod +x build/bin/geth
-          nohup ./build/bin/geth --dev --http --http.api "personal,eth,net,web3" --http.addr "0.0.0.0" --http.port 8545 &
-          sleep 5 # Wait for geth to start
-      - name: Send ETH
-        run: node sendEth.js
-      - name: Install pandoras-box
-        run: npm install -g pandoras-box
-      - name: Run stress test
-        run: pandoras-box -url http://127.0.0.1:8545 -m "erupt oven loud noise rug proof sunset gas table era dizzy vault" -t 1 -b 5 -o ./myOutput.json
-      # - name: Set up Go
-      #   uses: actions/setup-go@v5
-      #   with:
-      #     go-version: 1.21.4
-      # - name: Run tests
-      #   run: go test -short ./...
-      #   env:
-      #     GOOS: linux
-      #     GOARCH: 386
+          sudo add-apt-repository -y ppa:ethereum/ethereum
+          sudo apt-get update
+          sudo apt-get install ethereum solc
+      - name: Clone execution-spec-tests
+        run: |
+          git clone https://github.com/ethereum/execution-spec-tests
+          cd execution-spec-tests
+          python3 -m venv ./venv/
+          source ./venv/bin/activate
+          pip install -e '.[docs,lint,test]'
