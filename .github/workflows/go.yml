@@ -47,4 +47,4 @@ jobs:
         run: |
           git clone https://github.com/ethereum/execution-spec-tests
           cd execution-spec-tests
-          pip install -e '.[docs,lint,test]'
+          sudo pip install -e '.[docs,lint,test]'
