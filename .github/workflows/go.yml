@@ -52,6 +52,8 @@ jobs:
           python3 -m venv ./venv/
           source ./venv/bin/activate
           pip install -e '.[docs,lint,test]'
+      - name: Print working directory
+        run: pwd
       - name: Test spec
         run: |
           chmod +x ./build/bin/evm
