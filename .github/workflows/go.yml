@@ -47,4 +47,8 @@ jobs:
         run: |
           git clone https://github.com/ethereum/execution-spec-tests
           cd execution-spec-tests
-          sudo pip install -e '.[docs,lint,test]'
+          python3 -m venv ./venv/
+          source ./venv/bin/activate
+          pip install -e '.[docs,lint,test]'
+      - name: Verify the installation
+        run: fill --collect-only
