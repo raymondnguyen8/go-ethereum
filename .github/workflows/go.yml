@@ -45,15 +45,17 @@ jobs:
           sudo add-apt-repository -y ppa:ethereum/ethereum
           sudo apt-get update
           sudo apt-get install ethereum solc
-      - name: Clone execution-spec-tests
-        run: |
-          git clone https://github.com/ethereum/execution-spec-tests
-          cd execution-spec-tests
-          python3 -m venv ./venv/
-          source ./venv/bin/activate
-          pip install -e '.[docs,lint,test]'
+      # - name: Clone execution-spec-tests
+      #   run: |
+      #     git clone https://github.com/ethereum/execution-spec-tests
+      #     cd execution-spec-tests
+      #     python3 -m venv ./venv/
+      #     source ./venv/bin/activate
+      #     pip install -e '.[docs,lint,test]'
       - name: Print working directory
         run: pwd
+      - name: List all files
+        run: ls build/bin
       - name: Test spec
         run: |
           chmod +x ./build/bin/evm
