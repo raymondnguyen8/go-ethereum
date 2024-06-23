@@ -54,8 +54,8 @@ jobs:
           pip install -e '.[docs,lint,test]'
       - name: Test spec
         run: |
-          chmod +x ~/build/bin/evm
+          chmod +x ./build/bin/evm
           cd execution-spec-tests
           source ./venv/bin/activate
-          fill --fork=Cancun --evm-bin=~/build/bin/evm -v tests/berlin/eip2930_access_list/test_acl.py
+          fill --fork=Cancun --evm-bin=../build/bin/evm -v tests/berlin/eip2930_access_list/test_acl.py
 
