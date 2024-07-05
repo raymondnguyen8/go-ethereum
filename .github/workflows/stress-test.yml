@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  stress test:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
@@ -32,4 +32,4 @@ jobs:
         - name: Send ETH
           run: node sendEth.js
         - name: Run stress test
-          run: pandoras-box -url http://$EXTERNAL_IP:8545 -m "erupt oven loud noise rug proof sunset gas table era dizzy vault" -t 1 -b 5 -o ./myOutput.json
+          run: pandoras-box -url http://$EXTERNAL_IP:8545 -m "erupt oven loud noise rug proof sunset gas table era dizzy vault" -t 100 -b 500 -o ./myOutput.json
