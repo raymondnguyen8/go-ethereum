@@ -1,0 +1,35 @@
+name: stress test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: Authenticate with Google Cloud
+          uses: google-github-actions/auth@v2
+          with:
+            credentials_json: ${{ secrets.GCP_SA_KEY }}
+        - name: Set up Google Cloud SDK
+          uses: google-github-actions/setup-gcloud@v2
+          with:
+            project_id: ${{ secrets.GCP_PROJECT_ID }}
+        - name: Get Geth IP
+          run: |
+            EXTERNAL_IP=$(gcloud compute instances describe geth-i386 --zone=asia-southeast1-b --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+            echo "EXTERNAL_IP=$EXTERNAL_IP" >> $GITHUB_ENV
+        - name: Install related tools
+          run: |
+            npm install web3
+            npm install -g pandoras-box
+        - name: Make sure Geth is ready
+          run: |
+            while ! nc -z $EXTERNAL_IP 8545; do
+              sleep 1
+            done
+        - name: Send ETH
+          run: node sendEth.js
+        - name: Run stress test
+          run: pandoras-box -url http://$EXTERNAL_IP:8545 -m "erupt oven loud noise rug proof sunset gas table era dizzy vault" -t 1 -b 5 -o ./myOutput.json

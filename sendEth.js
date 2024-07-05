@@ -1,5 +1,5 @@
 const { Web3 } = require('web3');
-const web3 = new Web3('http://localhost:8545');
+const web3 = new Web3(`http://${process.env.EXTERNAL_IP}:8545`);
 
 async function sendEth() {
   const accounts = await web3.eth.getAccounts();
