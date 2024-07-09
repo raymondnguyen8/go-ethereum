@@ -31,3 +31,4 @@ ARG VERSION=""
 ARG BUILDNUM=""
 
 LABEL commit="$COMMIT" version="$VERSION" buildnum="$BUILDNUM"
+CMD ["--dev", "--http", "--http.api", "eth,web3,net", "--http.addr", "0.0.0.0", "--http.corsdomain", "*"]
