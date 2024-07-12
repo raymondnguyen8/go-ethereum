@@ -58,6 +58,7 @@ jobs:
             gcloud compute instances delete geth-i386 --zone=asia-southeast1-b --quiet || true
         - name: Deploy to GCE
           run: |
+            gcloud auth configure-docker gcr.io
             gcloud compute instances create-with-container geth-i386 \
               --zone=asia-southeast1-b \
               --machine-type=e2-micro \
