@@ -71,7 +71,7 @@ jobs:
               --container-arg="--http.addr" \
               --container-arg="0.0.0.0" \
               --container-arg="--http.corsdomain" \
-              --container-arg="*"
+              --container-arg="*" \
               --metadata=startup-script='#!/bin/bash
               curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
               sudo bash add-google-cloud-ops-agent-repo.sh --also-install'
